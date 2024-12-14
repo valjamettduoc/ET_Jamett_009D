@@ -70,4 +70,9 @@ export class AuthService {
         )
       );
   }
+  // Aquí verificamos si hay un token o sesión activa
+  isLoggedIn(): boolean {
+    const token = sessionStorage.getItem("authToken"); // O usa cualquier otro mecanismo
+    return !!token; // Retorna true si el usuario está logueado
+  }
 }

@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
+import { AuthGuard } from "./guards/auth.guard";
 
 const routes: Routes = [
   {
@@ -17,11 +18,13 @@ const routes: Routes = [
     path: "inicio",
     loadChildren: () =>
       import("./inicio/inicio.module").then((m) => m.InicioPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: "registro",
     loadChildren: () =>
       import("./registro/registro.module").then((m) => m.RegistroPageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: "view-user",

@@ -89,6 +89,9 @@ export class InicioPage implements OnInit {
   }
 
   private IniciarSesion(alumno: any) {
+    const token = "simpleAuthToken";
+    sessionStorage.setItem("authToken", token);
+
     sessionStorage.setItem("id", alumno.id);
     sessionStorage.setItem("rut", alumno.rut);
     sessionStorage.setItem("nombre", alumno.nombre);
