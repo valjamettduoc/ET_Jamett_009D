@@ -1,0 +1,19 @@
+ion-toolbar{
+    /* Ajusta la altura de la toolbar */
+    --height: 145px; 
+    --padding-bottom: 80px; 
+    z-index: -1;
+    
+     /* Redondear bordes para que se vea bonito*/
+     border-bottom-left-radius: 20px; 
+     border-bottom-right-radius: 20px;
+    
+    };
+
+    ion-title{
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        width: 100%;
+        margin-top: 60px;
+    };

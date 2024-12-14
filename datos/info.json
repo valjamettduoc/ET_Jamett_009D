@@ -1,0 +1,37 @@
+{
+  "profesores": [
+    {
+      "id": "f7fd",
+      "nombre": "Maricon",
+      "apellido": "Lazcano",
+      "rut": "69666999-0",
+      "email": "lazcano@duoc.com",
+      "password": "mamanema",
+      "isactive": true
+    }
+  ],
+  "asignaturas": [
+    {
+      "id": "1",
+      "nombre": "Arquitectura de Software",
+      "profesor": "Cristian Lazcano"
+    },
+    {
+      "id": "2",
+      "nombre": "Estadistica Descriptiva",
+      "profesor": "Carla Manziya"
+    },
+    {
+      "id": "3",
+      "nombre": "Etica Profecional",
+      "profesor": "Divia Alarcon"
+    },
+    {
+      "id": "4",
+      "nombre": "Programacion de Aplicaciones Moviles",
+      "profesor": "Viviana Poblete"
+    }
+  ],
+  "asistencias": [],
+  "justificaciones": []
+}
