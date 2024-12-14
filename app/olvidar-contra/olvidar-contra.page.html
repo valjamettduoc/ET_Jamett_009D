@@ -1,0 +1,63 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Recuperar contraseña</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title style="text-align: center"
+        >Recuperar contraseña</ion-card-title
+      >
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="emailForm">
+        <ion-item>
+          <ion-label position="stacked">Ingrese su Email:</ion-label>
+          <ion-input type="text" formControlName="email"></ion-input>
+        </ion-item>
+        <div
+          *ngIf="emailForm.get('email')?.invalid && (emailForm.get('email')?.dirty || 
+                emailForm.get('email')?.touched)"
+        >
+          <div
+            style="color: red"
+            *ngIf="emailForm.get('email')?.hasError('required')"
+          >
+            *Email es obligatorio
+          </div>
+          <div
+            style="color: red"
+            *ngIf="emailForm.get('email')?.hasError('minlength')"
+          >
+            *Email debe tener mínimo 4 caracteres
+          </div>
+        </div>
+
+        <ion-row>
+          <ion-col size="12">
+            <ion-button
+              (click)="checkmail()"
+              [disabled]="!emailForm.valid"
+              expand="block"
+              color="primary"
+              shape="round"
+            >
+              Validar email
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

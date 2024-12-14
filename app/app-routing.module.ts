@@ -51,6 +51,14 @@ const routes: Routes = [
     path: 'detalle-asignatura',
     loadChildren: () => import('./detalle-asignatura/detalle-asignatura.module').then( m => m.DetalleAsignaturaPageModule)
   },
+  {
+    path: 'olvidar-contra',
+    loadChildren: () => import('./olvidar-contra/olvidar-contra.module').then( m => m.OlvidarContraPageModule)
+  },
+  {
+    path: 'nueva-contra',
+    loadChildren: () => import('./nueva-contra/nueva-contra.module').then( m => m.NuevaContraPageModule)
+  },
 ];
 @NgModule({
   imports: [
