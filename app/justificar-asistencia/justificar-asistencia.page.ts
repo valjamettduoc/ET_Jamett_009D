@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-
-type Asignatura =
-  | "Arquitectura de Software"
-  | "Estadística Descriptiva"
-  | "Ética Profesional"
-  | "Programación de Aplicaciones Móviles";
+import { Router } from "@angular/router";
+import { AuthService } from "../services/auth.service";
+import { ApijustificacionesService } from "../services/apijustificaciones.service";
+import { Alumno } from "src/interfaces/alumnos";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { AlertController } from "@ionic/angular";
 
 @Component({
   selector: "app-justificar-asistencia",
@@ -12,81 +12,65 @@ type Asignatura =
   styleUrls: ["./justificar-asistencia.page.scss"],
 })
 export class JustificarAsistenciaPage implements OnInit {
-  justificacion = {
-    nombre: "",
-    rut: "",
-    justificativo: "",
-    profesor: "",
-    asignatura: "" as Asignatura, // Definimos el tipo de asignatura
-    documento: null,
-  };
+  usuario: Alumno | null = null;
+  justificativoForm!: FormGroup;
+  imagenEscogida: string | ArrayBuffer | null = null;
 
-  asignaturas: Asignatura[] = [
-    "Arquitectura de Software",
-    "Estadística Descriptiva",
-    "Ética Profesional",
-    "Programación de Aplicaciones Móviles",
-  ];
-
-  profesores: { [key in Asignatura]: string } = {
-    // Mapeo de profesores
-    "Arquitectura de Software": "Cristian Lazcano",
-    "Estadística Descriptiva": "Carla Manziya",
-    "Ética Profesional": "Divia Alarcon",
-    "Programación de Aplicaciones Móviles": "Viviana Poblete",
-  };
-
-  justificacionesGuardadas: any[] = [];
-
-  constructor() {
-    // Aquí deberías cargar los datos del estudiante según tu lógica de autenticación
-    this.justificacion.nombre = "Nombre del Estudiante";
-    this.justificacion.rut = "12345678-9";
-  }
+  constructor(
+    private router: Router,
+    private justificacionService: ApijustificacionesService,
+    private Fbuild: FormBuilder,
+    private alert: AlertController
+  ) {}
 
   ngOnInit(): void {
-    this.cargarJustificaciones();
+    this.justificativoForm = this.Fbuild.group({
+      asignatura: ["", Validators.required],
+      seccion: ["", Validators.required],
+      imagen: ["", Validators.required],
+      descripcion: ["", Validators.required],
+      profesor: ["", Validators.required],
+      alumno: ["", Validators.required],
+    });
   }
 
-  onAsignaturaChange() {
-    // Asegúrate de que asignatura es del tipo Asignatura antes de asignar el profesor
-    if (
-      this.asignaturas.includes(this.justificacion.asignatura as Asignatura)
-    ) {
-      this.justificacion.profesor =
-        this.profesores[this.justificacion.asignatura] || "";
-    } else {
-      this.justificacion.profesor = ""; // Resetear si la asignatura no es válida
+  seleccionarImagen(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagenEscogida = reader.result;
+        this.justificativoForm.patchValue({ imagen: this.imagenEscogida });
+      };
+      reader.readAsDataURL(file);
     }
   }
 
-  onFileChange(event: any) {
-    const file = event.target.files[0];
-    this.justificacion.documento = file;
+  guardarJustificativo() {
+    if (this.justificativoForm.valid) {
+      const nuevaJustificacion = this.justificativoForm.value;
+
+      this.justificacionService
+        .PostJustificacion(nuevaJustificacion)
+        .subscribe(() => {
+          this.justificativoForm.reset();
+          this.imagenEscogida = null;
+          this.enviarJustificacion();
+          this.router.navigate(["/tabs/landing"]);
+        });
+    }
   }
 
-  onSubmit() {
-    const nuevaJustificacion = {
-      ...this.justificacion,
-      fecha: new Date().toISOString(),
-    };
-    this.justificacionesGuardadas.push(nuevaJustificacion);
-    this.guardarJustificaciones();
-    console.log("Justificación guardada:", nuevaJustificacion);
-    alert("Justificación enviada con éxito");
+  async enviarJustificacion() {
+    const alert = await this.alert.create({
+      header: "Justificativo enviado",
+      message: "Su justificativo se ha enviado correctamente.",
+      buttons: ["OK"],
+    });
+    await alert.present();
   }
 
-  guardarJustificaciones() {
-    localStorage.setItem(
-      "justificaciones",
-      JSON.stringify(this.justificacionesGuardadas)
-    );
-  }
-
-  cargarJustificaciones() {
-    const justificaciones = localStorage.getItem("justificaciones");
-    this.justificacionesGuardadas = justificaciones
-      ? JSON.parse(justificaciones)
-      : [];
+  volver() {
+    this.router.navigate(["/tabs/landing"]);
   }
 }

@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { IonicModule } from "@ionic/angular";
 
-import { JustificarAsistenciaPageRoutingModule } from "./justificar-asistencia-routing.module";
+import { OlvidarContraPageRoutingModule } from "./olvidar-contra-routing.module";
 
-import { JustificarAsistenciaPage } from "./justificar-asistencia.page";
+import { OlvidarContraPage } from "./olvidar-contra.page";
 
 @NgModule({
   imports: [
@@ -14,8 +14,8 @@ import { JustificarAsistenciaPage } from "./justificar-asistencia.page";
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    JustificarAsistenciaPageRoutingModule,
+    OlvidarContraPageRoutingModule,
   ],
-  declarations: [JustificarAsistenciaPage],
+  declarations: [OlvidarContraPage],
 })
-export class JustificarAsistenciaPageModule {}
+export class OlvidarContraPageModule {}

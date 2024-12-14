@@ -1,11 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { Justificacion } from "src/interfaces/justificaciones"; // Importa la interfaz adecuada
 import { environment } from "src/environments/environment";
-import {
-  Justificacion,
-  NewJustificacion,
-} from "src/interfaces/justificaciones";
 
 @Injectable({
   providedIn: "root",
@@ -13,31 +10,44 @@ import {
 export class ApijustificacionesService {
   constructor(private httpclient: HttpClient) {}
 
-  getJustificacion(): Observable<Justificacion[]> {
+  // Obtener todas las justificaciones
+  GetAllJustificaciones(): Observable<Justificacion[]> {
     return this.httpclient.get<Justificacion[]>(
-      `${environment.apiUrl}/asignaturas`
+      `${environment.apiUrl}/justificaciones`
     );
   }
 
-  postJustificacion(
-    newAsignatura: NewJustificacion
-  ): Observable<NewJustificacion> {
-    return this.httpclient.post<NewJustificacion>(
-      `${environment.apiUrl}/asignaturas`,
-      newAsignatura
+  // Obtener una justificación por su ID
+  GetJustificacionById(id: string): Observable<Justificacion> {
+    return this.httpclient.get<Justificacion>(
+      `${environment.apiUrl}/justificaciones/${id}`
     );
   }
 
-  putJustificacion(asignatura: any): Observable<Justificacion> {
+  // Crear una nueva justificación
+  PostJustificacion(
+    newJustificacion: Justificacion
+  ): Observable<Justificacion> {
+    return this.httpclient.post<Justificacion>(
+      `${environment.apiUrl}/justificaciones`,
+      newJustificacion
+    );
+  }
+
+  // Actualizar una justificación existente
+  actualizarJustificacion(
+    justificacion: Justificacion
+  ): Observable<Justificacion> {
     return this.httpclient.put<Justificacion>(
-      `${environment.apiUrl}/asignaturas/${asignatura.id}`,
-      asignatura
+      `${environment.apiUrl}/justificaciones/${justificacion.id}`,
+      justificacion
     );
   }
 
-  deleteJustificacion(asignatura: any): Observable<Justificacion> {
-    return this.httpclient.delete<Justificacion>(
-      `${environment.apiUrl}/asignaturas/${asignatura.id}`
+  // Eliminar una justificación
+  eliminarJustificacion(id: string): Observable<void> {
+    return this.httpclient.delete<void>(
+      `${environment.apiUrl}/justificaciones/${id}`
     );
   }
 }

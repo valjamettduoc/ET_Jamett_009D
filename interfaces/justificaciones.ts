@@ -2,15 +2,19 @@
 export interface Justificacion {
   id: number;
   asignataura: string;
+  seccion: string;
+  imagen: string;
+  alumno: string;
   profesor: string;
-  fecha: Date;
   descripcion: string;
 }
 
 //post
 export interface NewJustificacion {
   asignataura: string;
+  seccion: string;
+  imagen: string;
   profesor: string;
-  fecha: Date;
+  alumno: string;
   descripcion: string;
 }

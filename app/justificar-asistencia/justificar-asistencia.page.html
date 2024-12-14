@@ -1,59 +1,109 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Justificar Asistencia</ion-title>
+<ion-header [translucent]="true">
+  <ion-toolbar color="warning">
+    <ion-buttons>
+      <ion-button (click)="volver()">
+        <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> Justificativo de Inasistencia </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <form (ngSubmit)="onSubmit()">
-    <ion-item>
-      <ion-label position="floating">Asignatura</ion-label>
-      <ion-select
-        [(ngModel)]="justificacion.asignatura"
-        name="asignatura"
-        (ionChange)="onAsignaturaChange()"
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Justificación de Inasistencia</ion-card-title>
+    </ion-card-header>
+
+    <form [formGroup]="justificativoForm" (ngSubmit)="guardarJustificativo()">
+      <ion-item>
+        <ion-label position="floating">Nombre Asignatura</ion-label>
+        <ion-input type="text" formControlName="asignatura"></ion-input>
+      </ion-item>
+      <div
+        style="color: red"
+        id="alerta"
+        *ngIf="justificativoForm.get('asignatura')?.invalid && (justificativoForm.get('asignatura')?.dirty || justificativoForm.get('asignatura')?.touched)"
       >
-        <ion-select-option
-          *ngFor="let asignatura of asignaturas"
-          [value]="asignatura"
+        *Nombre Asignatura es Obligatorio
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Profesor</ion-label>
+        <ion-input type="text" formControlName="profesor"></ion-input>
+      </ion-item>
+      <div
+        style="color: red"
+        id="alerta"
+        *ngIf="justificativoForm.get('profesor')?.invalid && (justificativoForm.get('profesor')?.dirty || justificativoForm.get('profesor')?.touched)"
+      >
+        *Nombre Profesor es Obligatorio
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Alumno</ion-label>
+        <ion-input type="text" formControlName="alumno"></ion-input>
+      </ion-item>
+      <div
+        style="color: red"
+        id="alerta"
+        *ngIf="justificativoForm.get('alumno')?.invalid && (justificativoForm.get('alumno')?.dirty || justificativoForm.get('alumno')?.touched)"
+      >
+        *Nombre Alumno es Obligatorio
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Sección</ion-label>
+        <ion-input type="text" formControlName="seccion"></ion-input>
+      </ion-item>
+      <div
+        style="color: red"
+        id="alerta"
+        *ngIf="justificativoForm.get('seccion')?.invalid && (justificativoForm.get('seccion')?.dirty || justificativoForm.get('seccion')?.touched)"
+      >
+        *Sección es Obligatorio
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Descripción</ion-label>
+        <ion-input type="text" formControlName="descripcion"></ion-input>
+      </ion-item>
+      <div
+        style="color: red"
+        id="alerta"
+        *ngIf="justificativoForm.get('descripcion')?.invalid && (justificativoForm.get('descripcion')?.dirty || justificativoForm.get('descripcion')?.touched)"
+      >
+        *Descripción es Obligatorio
+      </div>
+
+      <ion-item>
+        <ion-label position="stacked">Justificativo</ion-label>
+        <input
+          type="file"
+          (change)="seleccionarImagen($event)"
+          accept="image/*"
+        />
+      </ion-item>
+
+      <img
+        *ngIf="imagenEscogida"
+        [src]="imagenEscogida"
+        alt="Vista previa de la imagen"
+        style="max-width: 100%; margin-top: 10px"
+      />
+
+      <div style="text-align: center">
+        <ion-button
+          [disabled]="!justificativoForm.valid"
+          fill="solid"
+          shape="round"
+          color="warning"
+          style="padding-bottom: 15px"
+          type="submit"
         >
-          {{ asignatura }}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Profesor</ion-label>
-      <ion-input
-        [(ngModel)]="justificacion.profesor"
-        name="profesor"
-        readonly
-      ></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Justificativo</ion-label>
-      <ion-textarea
-        [(ngModel)]="justificacion.justificativo"
-        name="justificativo"
-      ></ion-textarea>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Documento</ion-label>
-      <input type="file" (change)="onFileChange($event)" />
-    </ion-item>
-
-    <ion-button expand="block" type="submit">Enviar Justificación</ion-button>
-  </form>
-
-  <ion-list>
-    <ion-item *ngFor="let justificacion of justificacionesGuardadas">
-      <ion-label>
-        <h2>{{ justificacion.asignatura }} - {{ justificacion.profesor }}</h2>
-        <p>{{ justificacion.justificativo }}</p>
-        <p><strong>Fecha:</strong> {{ justificacion.fecha }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+          Enviar Justificativo
+        </ion-button>
+      </div>
+    </form>
+  </ion-card>
 </ion-content>

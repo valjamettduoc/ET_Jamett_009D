@@ -137,4 +137,8 @@ export class InicioPage implements OnInit {
   Registrar() {
     this.router.navigate(["registro"]);
   }
+
+  RecuperarContra() {
+    this.router.navigate(["olvidar-contra"]);
+  }
 }

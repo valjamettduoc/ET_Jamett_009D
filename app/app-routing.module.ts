@@ -24,28 +24,58 @@ const routes: Routes = [
       import("./registro/registro.module").then((m) => m.RegistroPageModule),
   },
   {
-    path: 'view-user',
-    loadChildren: () => import('./view-user/view-user.module').then( m => m.ViewUserPageModule)
+    path: "view-user",
+    loadChildren: () =>
+      import("./view-user/view-user.module").then((m) => m.ViewUserPageModule),
   },
   {
-    path: 'modify-user',
-    loadChildren: () => import('./modify-user/modify-user.module').then( m => m.ModifyUserPageModule)
+    path: "modify-user",
+    loadChildren: () =>
+      import("./modify-user/modify-user.module").then(
+        (m) => m.ModifyUserPageModule
+      ),
   },
   {
-    path: 'configuracion-perfil',
-    loadChildren: () => import('./configuracion-perfil/configuracion-perfil.module').then( m => m.ConfiguracionPerfilPageModule)
+    path: "configuracion-perfil",
+    loadChildren: () =>
+      import("./configuracion-perfil/configuracion-perfil.module").then(
+        (m) => m.ConfiguracionPerfilPageModule
+      ),
   },
   {
-    path: 'asignaturas',
-    loadChildren: () => import('./asignaturas/asignaturas.module').then( m => m.AsignaturasPageModule)
+    path: "asignaturas",
+    loadChildren: () =>
+      import("./asignaturas/asignaturas.module").then(
+        (m) => m.AsignaturasPageModule
+      ),
   },
   {
-    path: 'detalle-alumno',
-    loadChildren: () => import('./detalle-alumno/detalle-alumno.module').then( m => m.DetalleAlumnoPageModule)
+    path: "detalle-alumno",
+    loadChildren: () =>
+      import("./detalle-alumno/detalle-alumno.module").then(
+        (m) => m.DetalleAlumnoPageModule
+      ),
   },
   {
-    path: 'justificar-asistencia',
-    loadChildren: () => import('./justificar-asistencia/justificar-asistencia.module').then( m => m.JustificarAsistenciaPageModule)
+    path: "justificar-asistencia",
+    loadChildren: () =>
+      import("./justificar-asistencia/justificar-asistencia.module").then(
+        (m) => m.JustificarAsistenciaPageModule
+      ),
+  },
+  {
+    path: "olvidar-contra",
+    loadChildren: () =>
+      import("./olvidar-contra/olvidar-contra.module").then(
+        (m) => m.OlvidarContraPageModule
+      ),
+  },
+  {
+    path: "nueva-contra/:id",
+    loadChildren: () =>
+      import("./nueva-contra/nueva-contra.module").then(
+        (m) => m.NuevaContraPageModule
+      ),
   },
 ];
 @NgModule({
