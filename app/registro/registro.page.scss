@@ -1,0 +1,58 @@
+ion-toolbar{
+    /* Ajusta la altura de la toolbar */
+    --height: 145px; 
+    --padding-bottom: 100px; 
+    z-index: -1;
+    
+     /* Redondear bordes para que se vea bonito*/
+     border-bottom-left-radius: 20px; 
+     border-bottom-right-radius: 20px;
+    
+    };
+
+    ion-title{
+        font-size: 29px;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        width: 100%;
+        margin-top: 5px;
+    };
+
+    .custom-button{
+        margin-top: 20px;
+        margin-bottom: 10px;
+    };
+
+    .logox{
+        align-items: center;
+    };
+
+
+
+    .signup-form {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: var(--terciary-color);
+        padding: 20px;
+        border-radius: 20px;
+        position: absolute;     /* Posicionamiento absoluto */
+        top: 59%;               /* Mover desde la parte superior */
+        left: 50%;              /* Mover desde la izquierda */
+        transform: translate(-50%, -50%); /* Ajustar para centrar */
+        z-index: 10;
+      }
+      
+      .input-item {
+        margin-bottom: 20px;
+      }
+      
+      .registrarse-boton{
+        border-radius: 15px;
+    }
+
+    .error-message {
+        color: #fa2121; /* Color rojo para los mensajes de error */
+        margin-top: -4px; /* Espacio entre el input y el mensaje */
+    }

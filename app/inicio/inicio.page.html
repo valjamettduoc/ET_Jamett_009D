@@ -1,0 +1,77 @@
+<ion-header [translucent]="false" class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>Inicia Sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<form [formGroup]="loginForm" class="signup-form">
+  <!-- Email -->
+  <ion-item class="input-item">
+    <ion-input
+      type="email"
+      placeholder="Ingresa tu email"
+      formControlName="email"
+      label="Email"
+      labelPlacement="floating"
+    >
+    </ion-input>
+  </ion-item>
+  <div
+    *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)"
+    class="error-message"
+  >
+    <div *ngIf="loginForm.get('email')?.hasError('required')">
+      *Este campo es obligatorio.
+    </div>
+    <div *ngIf="loginForm.get('email')?.hasError('email')">
+      *Email inválido.
+    </div>
+    <div *ngIf="loginForm.get('rut')?.hasError('maxlength')">
+      *Un Email no tiene tantos caracteres.
+    </div>
+  </div>
+
+  <!-- Contraseña -->
+  <ion-item class="input-item">
+    <ion-input
+      type="password"
+      placeholder="Ingresa tu contraseña"
+      formControlName="password"
+      label="Contraseña"
+      labelPlacement="floating"
+    >
+    </ion-input>
+  </ion-item>
+  <div
+    *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
+    class="error-message"
+  >
+    <div *ngIf="loginForm.get('password')?.hasError('required')">
+      *Contraseña es obligatoria.
+    </div>
+    <div *ngIf="loginForm.get('password')?.hasError('minlength')">
+      *Mínimo 6 caracteres.
+    </div>
+    <div *ngIf="loginForm.get('rut')?.hasError('maxlength')">
+      *Máximo 16 caracteres.
+    </div>
+  </div>
+
+  <!-- Sign Up Button -->
+  <div class="login-boton">
+    <ion-button (click)="login()" [disabled]="!loginForm.valid" expand="block">
+      ¡Iniciar sesión!
+    </ion-button>
+  </div>
+
+  <div style="text-align: center">
+    <ion-button
+      (click)="Registrar()"
+      fill="clear"
+      expand="block"
+      class="registro-boton"
+    >
+      ¿Nuevo aquí? ¿Por qué no te registras?
+    </ion-button>
+  </div>
+</form>

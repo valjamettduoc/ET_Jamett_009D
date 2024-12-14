@@ -1,0 +1,159 @@
+<ion-header [translucent]="false" class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons class="custom-button">
+      <ion-button (click)="redireccionPagina()">
+        <ion-icon name="arrow-back-outline" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Regístrate Ahora.</ion-title>
+
+    <div class="subtituloinicio">
+      <ion-title style="font-size: 18px">Se parte de nuestra app.</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<form [formGroup]="registroForm" class="signup-form">
+  <!-- Nombre -->
+  <ion-item class="input-item">
+    <ion-input
+      type="text"
+      placeholder="Ingresa tu nombre."
+      formControlName="nombre"
+      label="Nombre"
+      labelPlacement="floating"
+    >
+    </ion-input>
+  </ion-item>
+  <div
+    *ngIf="registroForm.get('nombre')?.invalid && (registroForm.get('nombre')?.dirty || registroForm.get('nombre')?.touched)"
+    class="error-message"
+  >
+    <div *ngIf="registroForm.get('nombre')?.hasError('required')">
+      *Este campo es obligatorio.
+    </div>
+    <div *ngIf="registroForm.get('nombre')?.hasError('pattern')">
+      *Solo letras para digitar Nombre.
+    </div>
+    <div *ngIf="registroForm.get('nombre')?.hasError('maxlength')">
+      *Máximo 80 caracteres.
+    </div>
+  </div>
+
+  <!-- Apellido -->
+  <ion-item class="input-item">
+    <ion-input
+      type="text"
+      placeholder="Ingresa tu apellido."
+      formControlName="apellido"
+      label="Apellido"
+      labelPlacement="floating"
+    >
+    </ion-input>
+  </ion-item>
+  <div
+    *ngIf="registroForm.get('apellido')?.invalid && (registroForm.get('apellido')?.dirty || registroForm.get('apellido')?.touched)"
+    class="error-message"
+  >
+    <div *ngIf="registroForm.get('apellido')?.hasError('required')">
+      *Este campo es obligatorio.
+    </div>
+    <div *ngIf="registroForm.get('apellido')?.hasError('pattern')">
+      *Solo letras para digitar Apellido.
+    </div>
+    <div *ngIf="registroForm.get('apellido')?.hasError('maxlength')">
+      *Máximo 80 caracteres.
+    </div>
+  </div>
+
+  <!-- RUT -->
+  <ion-item class="input-item">
+    <ion-input
+      type="text"
+      placeholder="Ingresa tu RUT, sin puntos, con guión y digito verificador."
+      formControlName="rut"
+      label="RUT"
+      labelPlacement="floating"
+    >
+    </ion-input>
+  </ion-item>
+  <div
+    *ngIf="registroForm.get('rut')?.invalid && (registroForm.get('rut')?.dirty || registroForm.get('rut')?.touched)"
+    class="error-message"
+  >
+    <div *ngIf="registroForm.get('rut')?.hasError('required')">
+      *Este campo es obligatorio.
+    </div>
+    <div *ngIf="registroForm.get('rut')?.hasError('pattern')">
+      *RUT inválido.
+    </div>
+    <div *ngIf="registroForm.get('rut')?.hasError('maxlength')">
+      *Éxedido en dígitos del RUT.
+    </div>
+  </div>
+
+  <!-- Email -->
+  <ion-item class="input-item">
+    <ion-input
+      type="email"
+      placeholder="Ingresa tu email"
+      formControlName="email"
+      label="Email"
+      labelPlacement="floating"
+    >
+    </ion-input>
+  </ion-item>
+  <div
+    *ngIf="registroForm.get('email')?.invalid && (registroForm.get('email')?.dirty || registroForm.get('email')?.touched)"
+    class="error-message"
+  >
+    <div *ngIf="registroForm.get('email')?.hasError('required')">
+      *Este campo es obligatorio.
+    </div>
+    <div *ngIf="registroForm.get('email')?.hasError('email')">
+      *Email inválido.
+    </div>
+    <div *ngIf="registroForm.get('rut')?.hasError('maxlength')">
+      *Un Email no tiene tantos caracteres.
+    </div>
+  </div>
+
+  <!-- Contraseña -->
+  <ion-item class="input-item">
+    <ion-input
+      type="password"
+      placeholder="Ingresa tu contraseña"
+      formControlName="password"
+      label="Contraseña"
+      labelPlacement="floating"
+    >
+    </ion-input>
+  </ion-item>
+  <div
+    *ngIf="registroForm.get('password')?.invalid && (registroForm.get('password')?.dirty || registroForm.get('password')?.touched)"
+    class="error-message"
+  >
+    <div *ngIf="registroForm.get('password')?.hasError('required')">
+      *Contraseña es obligatoria.
+    </div>
+    <div *ngIf="registroForm.get('password')?.hasError('minlength')">
+      *Mínimo 6 caracteres.
+    </div>
+    <div *ngIf="registroForm.get('rut')?.hasError('maxlength')">
+      *Máximo 16 caracteres.
+    </div>
+  </div>
+
+  <!-- Sign Up Button -->
+  <div class="registrarse-boton">
+    <ion-button
+      (click)="crearAlumno()"
+      [disabled]="!registroForm.valid"
+      expand="block"
+      color="secondary"
+    >
+      Registrarse.
+    </ion-button>
+  </div>
+</form>

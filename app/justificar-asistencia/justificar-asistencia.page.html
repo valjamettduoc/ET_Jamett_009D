@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Justificar Asistencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Asignatura</ion-label>
+      <ion-select
+        [(ngModel)]="justificacion.asignatura"
+        name="asignatura"
+        (ionChange)="onAsignaturaChange()"
+      >
+        <ion-select-option
+          *ngFor="let asignatura of asignaturas"
+          [value]="asignatura"
+        >
+          {{ asignatura }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Profesor</ion-label>
+      <ion-input
+        [(ngModel)]="justificacion.profesor"
+        name="profesor"
+        readonly
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Justificativo</ion-label>
+      <ion-textarea
+        [(ngModel)]="justificacion.justificativo"
+        name="justificativo"
+      ></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Documento</ion-label>
+      <input type="file" (change)="onFileChange($event)" />
+    </ion-item>
+
+    <ion-button expand="block" type="submit">Enviar Justificación</ion-button>
+  </form>
+
+  <ion-list>
+    <ion-item *ngFor="let justificacion of justificacionesGuardadas">
+      <ion-label>
+        <h2>{{ justificacion.asignatura }} - {{ justificacion.profesor }}</h2>
+        <p>{{ justificacion.justificativo }}</p>
+        <p><strong>Fecha:</strong> {{ justificacion.fecha }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

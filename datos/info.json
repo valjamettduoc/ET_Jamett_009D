@@ -1,0 +1,45 @@
+{
+  "alumnos": [
+    {
+      "id": "5c90",
+      "nombre": "Juanito",
+      "apellido": "Perez",
+      "rut": "34666999-6",
+      "email": "perezjuan@email.com",
+      "password": "holaaaaaaa",
+      "isactive": true
+    },
+    {
+      "id": "ae89",
+      "nombre": "Hola",
+      "apellido": "aaaa",
+      "rut": "22333444-6",
+      "email": "kdkds@dkkd.com",
+      "password": "qweasd",
+      "isactive": true
+    }
+  ],
+  "asignaturas": [
+    {
+      "id": "1",
+      "nombre": "Arquitectura de Software",
+      "profesor": "Cristian Lazcano"
+    },
+    {
+      "id": "2",
+      "nombre": "Estadistica Descriptiva",
+      "profesor": "Carla Manziya"
+    },
+    {
+      "id": "3",
+      "nombre": "Etica Profecional",
+      "profesor": "Divia Alarcon"
+    },
+    {
+      "id": "4",
+      "nombre": "Programacion de Aplicaciones Moviles",
+      "profesor": "Viviana Poblete"
+    }
+  ],
+  "justificaciones": []
+}

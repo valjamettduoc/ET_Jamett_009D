@@ -1,0 +1,133 @@
+<ion-header [translucent]="true" class="toolbar-app">
+  <ion-toolbar>
+    <ion-buttons slot="end"> </ion-buttons>
+    <img src="#" alt="" width="65%" height="100%" class="logo-registrapp" />
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-row>
+    <ion-col size="12">
+      <ion-card>
+        <form>
+          <ion-item>
+            <ion-icon
+              slot="start"
+              name="person-outline"
+              color="#FFB800"
+            ></ion-icon>
+            <ion-label
+              style="font-style: oblique; font-weight: bold; color: #ffb800"
+              >Datos del Estudiante</ion-label
+            >
+          </ion-item>
+
+          <!--NOMBRE-->
+          <ion-item>
+            <ion-label class="titulo-list" position="floating"
+              >Nombre
+            </ion-label>
+            <ion-input
+              type="text"
+              placeholder="Ingrese su nombre"
+              name="nombre"
+              [(ngModel)]="unAlumnos.nombre"
+              disabled
+            ></ion-input>
+          </ion-item>
+
+          <!--APELLIDO-->
+          <ion-item>
+            <ion-label class="titulo-list" position="floating"
+              >Apellido
+            </ion-label>
+            <ion-input
+              type="text"
+              placeholder="Ingrese su apellido"
+              name="apellido"
+              [(ngModel)]="unAlumnos.apellido"
+              disabled
+            ></ion-input>
+          </ion-item>
+
+          <!--RUT-->
+          <ion-item>
+            <ion-label class="titulo-list" position="floating">RUT </ion-label>
+            <ion-input
+              type="text"
+              placeholder="Ingrese su rut"
+              name="rut"
+              [(ngModel)]="unAlumnos.rut"
+              disabled
+            ></ion-input>
+          </ion-item>
+
+          <!--AVISO-->
+          <ion-item>
+            <ion-icon
+              slot="start"
+              name="warning-outline"
+              color="#FFB800"
+            ></ion-icon>
+            <p style="font-style: oblique; color: #ffb800; font-size: small">
+              Si necesita cambiar alguno de los datos anteriores, contáctese con
+              asuntos estudiantiles.
+            </p>
+          </ion-item>
+
+          <ion-item>
+            <ion-icon
+              slot="start"
+              name="construct-outline"
+              color="#FFB800"
+            ></ion-icon>
+            <ion-label
+              style="font-style: oblique; font-weight: bold; color: #ffb800"
+              >Puede actualizar...</ion-label
+            >
+          </ion-item>
+
+          <!--EMAIL-->
+          <ion-item>
+            <ion-label class="titulo-list" position="floating"
+              >Correo Electrónico
+            </ion-label>
+            <ion-input
+              type="email"
+              placeholder="Ingrese su nuevo correo"
+              name="email"
+              [(ngModel)]="unAlumnos.email"
+            ></ion-input>
+          </ion-item>
+
+          <!--CONTRASEÑA-->
+          <ion-item>
+            <ion-label class="titulo-list" position="floating"
+              >Contraseña
+            </ion-label>
+            <ion-input
+              type="password"
+              placeholder="Ingrese una nueva contraseña"
+              name="password"
+              [(ngModel)]="unAlumnos.password"
+            ></ion-input>
+          </ion-item>
+        </form>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-button
+        (click)="ActualizarEstudiante()"
+        style="margin: 5%"
+        expand="block"
+        color="warning"
+        shape="round"
+      >
+        Actualizar Datos
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

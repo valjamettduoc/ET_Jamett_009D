@@ -1,0 +1,17 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Asignaturas</ion-title>
+  </ion-toolbar>
+
+  <ion-list>
+    <ion-item *ngFor="let a of asignatura" (click)="buscarAsignatura(a)">
+      <ion-label>
+        <h3 style="color: aquamarine">Id Asignatura: {{a.id}}</h3>
+        <h4>Nombre: {{a.nombre}}</h4>
+        <h4>Profesor: {{a.profesor}}</h4>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-header>
+
+<ion-content [fullscreen]="true"> </ion-content>

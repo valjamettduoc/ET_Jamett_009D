@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Mi Perfil</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="logOut()">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="informacion-usuario">
+    <img *ngIf="imageSrc" [src]="imageSrc" class="foto-de-perfil" />
+    <p>
+      <span class="titulo">Rut:</span>
+      <span class="datos-usuario">{{ this.rut }}</span>
+    </p>
+    <p>
+      <span class="titulo">Nombre:</span>
+      <span class="datos-usuario">{{ this.nombre }}</span>
+    </p>
+    <p>
+      <span class="titulo">Apellido:</span>
+      <span class="datos-usuario">{{ this.apellido }}</span>
+    </p>
+
+    <p>
+      <span class="titulo">Contraseña:</span>
+      <span class="datos-usuario">
+        <ng-container *ngIf="mostrarPassword; else ocultarPassword">
+          {{ this.password }}
+        </ng-container>
+        <ng-template #ocultarPassword class="boton-ocultar-password">
+          ******
+          <!-- Aquí es donde se oculta la contraseña -->
+        </ng-template>
+      </span>
+      <ion-button
+        fill="clear"
+        (click)="togglePasswordVisibility()"
+        class="boton-ocultar-password"
+      >
+        <ion-icon
+          [name]="mostrarPassword ? 'eye-off-outline' : 'eye-outline'"
+        ></ion-icon>
+      </ion-button>
+    </p>
+
+    <p>
+      <span class="titulo">Correo Electrónico:</span>
+      <span class="datos-usuario">{{ email }}</span>
+    </p>
+  </div>
+
+  <div style="text-align: center">
+    <ion-button (click)="actualizarUsuario()" shape="round" color="warning">
+      Actualizar
+    </ion-button>
+  </div>
+</ion-content>
