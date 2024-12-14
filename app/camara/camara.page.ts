@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 import { NewAsistencia } from "src/interfaces/asistencia";
-import { BrowserQRCodeReader } from "@zxing/browser";
 import { ApiasistenciaService } from "../services/apiasistencia.service";
 
 @Component({
@@ -25,28 +24,12 @@ export class CamaraPage implements OnInit {
   }
 
   async leerQr() {
-    try {
-      // Captura una imagen usando la cámara
-      const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: false,
-        resultType: CameraResultType.DataUrl, // Devuelve la imagen como un DataURL
-        source: CameraSource.Camera,
-      });
-
-      if (image?.dataUrl) {
-        // Decodifica el QR desde la imagen usando zxing-js
-        const codeReader = new BrowserQRCodeReader();
-        const result = await codeReader.decodeFromImageUrl(image.dataUrl);
-
-        if (result) {
-          // Procesa el texto del QR y actualiza `newAsistencia`
-          this.procesarQr(result.getText());
-        }
-      }
-    } catch (error) {
-      console.error("Error al leer el QR:", error);
-    }
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.DataUrl, // Devuelve la imagen como un DataURL
+      source: CameraSource.Camera,
+    });
   }
 
   procesarQr(data: string) {

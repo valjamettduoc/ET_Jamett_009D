@@ -10,14 +10,9 @@ Iniciar json-server:
 json-server --watch datos/info.json --host 0.0.0.0 --port 3000
 ```
 
-Instalar angularx-qrcode:
+Instalar cámara:
 
 ```
-npm install angularx-qrcode@18.0.2 --save
-```
-
-Instalar zxing/browser:
-
-```
-npm install @zxing/browser
+npm install @capacitor/camera
+npx cap sync
 ```
