@@ -32,13 +32,6 @@ const routes: Routes = [
       import("./view-user/view-user.module").then((m) => m.ViewUserPageModule),
   },
   {
-    path: "modify-user",
-    loadChildren: () =>
-      import("./modify-user/modify-user.module").then(
-        (m) => m.ModifyUserPageModule
-      ),
-  },
-  {
     path: "configuracion-perfil",
     loadChildren: () =>
       import("./configuracion-perfil/configuracion-perfil.module").then(
@@ -81,8 +74,11 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'qrgenerados',
-    loadChildren: () => import('./qrgenerados/qrgenerados.module').then( m => m.QrgeneradosPageModule)
+    path: "qrgenerados",
+    loadChildren: () =>
+      import("./qrgenerados/qrgenerados.module").then(
+        (m) => m.QrgeneradosPageModule
+      ),
   },
 ];
 @NgModule({

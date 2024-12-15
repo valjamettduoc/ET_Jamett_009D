@@ -8,14 +8,7 @@ import { Asignaturas, Asignatura, IAlumno } from "src/interfaces/asignaturas";
   providedIn: "root",
 })
 export class ApiasignaturasService {
-  apiPost = "http://localhost:3000/asignaturas";
-
   constructor(private httpclient: HttpClient) {}
-
-  /*método get de consumo de api pública*/
-  getPosts(): Observable<any> {
-    return this.httpclient.get<any>(this.apiPost);
-  }
 
   getAsignatura(): Observable<Asignaturas[]> {
     return this.httpclient.get<Asignaturas[]>(
