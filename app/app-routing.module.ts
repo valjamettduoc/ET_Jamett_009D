@@ -59,6 +59,10 @@ const routes: Routes = [
     path: 'nueva-contra',
     loadChildren: () => import('./nueva-contra/nueva-contra.module').then( m => m.NuevaContraPageModule)
   },
+  {
+    path: 'justificativos',
+    loadChildren: () => import('./justificativos/justificativos.module').then( m => m.JustificativosPageModule)
+  },
 ];
 @NgModule({
   imports: [

@@ -32,6 +32,13 @@ const routes: Routes = [
           import("../camara/camara.module").then((m) => m.CamaraPageModule),
       },
       {
+        path: "justificativos",
+        loadChildren: () =>
+          import("../justificativos/justificativos.module").then(
+            (m) => m.JustificativosPageModule
+          ),
+      },
+      {
         path: "",
         redirectTo: "/tabs/landing",
         pathMatch: "full",

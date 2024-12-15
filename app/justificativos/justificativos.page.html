@@ -1,0 +1,19 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Justificativos</ion-title>
+  </ion-toolbar>
+
+  <ion-list>
+    <ion-item *ngFor="let a of justificaciones">
+      <ion-label>
+        <h4 style="color: aquamarine">Asignatura: {{a.asignatura}}</h4>
+        <h4>Alumno: {{a.alumno}}</h4>
+        <h4>Profesor: {{a.profesor}}</h4>
+        <h4>Seccion: {{a.seccion}}</h4>
+        <h4>Descripcion: {{a.descripcion}}</h4>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-header>
+
+<ion-content [fullscreen]="true"> </ion-content>
