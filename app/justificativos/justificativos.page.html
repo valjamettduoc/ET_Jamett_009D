@@ -2,18 +2,39 @@
   <ion-toolbar>
     <ion-title>Justificativos</ion-title>
   </ion-toolbar>
+</ion-header>
 
+<ion-content [fullscreen]="true">
+  <!-- Selector de asignatura -->
+  <ion-item>
+    <ion-label>Seleccionar Asignatura</ion-label>
+    <ion-select
+      [(ngModel)]="asignaturaSeleccionada"
+      (ionChange)="filtrarJustificaciones()"
+    >
+      <ion-select-option value="">Todas</ion-select-option>
+      <ion-select-option
+        *ngFor="let a of justificaciones"
+        [value]="a.asignatura"
+      >
+        {{ a.asignatura }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Lista de justificaciones filtradas -->
   <ion-list>
-    <ion-item *ngFor="let a of justificaciones">
+    <ion-item *ngFor="let a of justificacionesFiltradas">
       <ion-label>
         <h4 style="color: aquamarine">Asignatura: {{a.asignatura}}</h4>
         <h4>Alumno: {{a.alumno}}</h4>
         <h4>Profesor: {{a.profesor}}</h4>
-        <h4>Seccion: {{a.seccion}}</h4>
-        <h4>Descripcion: {{a.descripcion}}</h4>
+        <h4>Sección: {{a.seccion}}</h4>
+        <h4>Descripción: {{a.descripcion}}</h4>
+        <ion-button (click)="agregarComentario(a)"
+          >Agregar/Editar Comentario</ion-button
+        >
       </ion-label>
     </ion-item>
   </ion-list>
-</ion-header>
-
-<ion-content [fullscreen]="true"> </ion-content>
+</ion-content>

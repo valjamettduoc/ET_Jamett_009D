@@ -51,4 +51,12 @@ export class ApijustificacionesService {
       `${environment.apiUrl}/justificaciones/${id}`
     );
   }
+
+  // Método para actualizar una justificación
+  actualizarJustificacion(
+    justificacion: Justificacion
+  ): Observable<Justificacion> {
+    const url = `${environment.apiUrl}/justificaciones/${justificacion.id}`; // La URL ahora incluye /justificaciones/{id}
+    return this.httpclient.put<Justificacion>(url, justificacion); // Enviar la solicitud PUT
+  }
 }

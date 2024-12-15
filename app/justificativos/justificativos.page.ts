@@ -9,24 +9,46 @@ import { ApijustificacionesService } from "../services/apijustificaciones.servic
   styleUrls: ["./justificativos.page.scss"],
 })
 export class JustificativosPage implements OnInit {
+  asignaturaSeleccionada: string = ""; // Asignatura seleccionada por el docente
+  justificaciones: Justificacion[] = [];
+  justificacionesFiltradas: Justificacion[] = [];
+
   constructor(
     private apicrud: ApijustificacionesService,
     private router: Router
   ) {}
 
-  justificaciones: Justificacion[] = [];
-
   ngOnInit() {
     // Llama al servicio para obtener las justificaciones y las almacena
     this.apicrud.getJustificaciones().subscribe((data) => {
       this.justificaciones = data;
-      console.log(this.justificaciones);
+      this.justificacionesFiltradas = this.justificaciones;
     });
   }
 
+  // Filtra las justificaciones por la asignatura seleccionada
+  filtrarJustificaciones() {
+    if (this.asignaturaSeleccionada) {
+      this.justificacionesFiltradas = this.justificaciones.filter(
+        (justificacion) =>
+          justificacion.asignatura.toLowerCase() ===
+          this.asignaturaSeleccionada.toLowerCase()
+      );
+    } else {
+      this.justificacionesFiltradas = this.justificaciones;
+    }
+  }
+
+  // Navega a la página de detalles, pasando la justificación seleccionada como parámetro
   buscarJustificacion(justificacion: Justificacion) {
-    // Navega a la página de detalles, pasando la justificación seleccionada como parámetro
     this.router.navigate(["/detalle-justificacion"], {
+      queryParams: { justificacion: JSON.stringify(justificacion) },
+    });
+  }
+
+  // Función para agregar o editar un comentario
+  agregarComentario(justificacion: Justificacion) {
+    this.router.navigate(["/editar-comentario"], {
       queryParams: { justificacion: JSON.stringify(justificacion) },
     });
   }

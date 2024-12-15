@@ -63,6 +63,10 @@ const routes: Routes = [
     path: 'justificativos',
     loadChildren: () => import('./justificativos/justificativos.module').then( m => m.JustificativosPageModule)
   },
+  {
+    path: 'editar-comentario',
+    loadChildren: () => import('./editar-comentario/editar-comentario.module').then( m => m.EditarComentarioPageModule)
+  },
 ];
 @NgModule({
   imports: [
