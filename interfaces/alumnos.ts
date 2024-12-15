@@ -1,5 +1,3 @@
-import { QRgenerado } from "./qrgenerado";
-
 //petición get, put, delete
 export interface Alumno {
   id: number;
@@ -8,7 +6,6 @@ export interface Alumno {
   rut: string;
   email: string;
   password: string;
-  qrgenerado?: QRgenerado[];
   isactive: boolean;
 }
 

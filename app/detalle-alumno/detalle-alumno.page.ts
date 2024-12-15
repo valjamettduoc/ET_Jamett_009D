@@ -63,38 +63,32 @@ export class DetalleAlumnoPage implements OnInit {
   generarQr() {
     const fechaActual = new Date().toLocaleDateString();
     this.qrdata = `
-RUT: ${this.usuarios.rut}
-Email: ${this.usuarios.email}
-Asignatura: ${this.asignatura.nombre}
-Profesor: ${this.asignatura.profesor}
-Fecha: ${fechaActual}
-  `;
-    console.log("QR Data:", this.qrdata);
-  }
+  RUT: ${this.usuarios.rut}
+  Email: ${this.usuarios.email}
+  Asignatura: ${this.asignatura.nombre}
+  Profesor: ${this.asignatura.profesor}
+  Fecha: ${fechaActual}
+    `;
 
-  async consultaElimina() {
-    const alert = await this.alertcontroller.create({
-      header: "Desea Eliminar?",
-      message: "Necesita eliminar la asignatura?",
-      buttons: [
-        {
-          text: "No",
-          role: "cancel",
-          handler: () => {
-            this.router.navigate(["/tabs/tab1"]);
-          },
-        },
-        {
-          text: "OK",
-          role: "confirm",
-          handler: () => {
-            this.eliminar();
-          },
-        },
-      ],
+    // Crear el objeto JSON con la información del QR
+    const qrgenerado = {
+      rut: this.usuarios.rut,
+      email: this.usuarios.email,
+      asignatura: this.asignatura.nombre,
+      profesor: this.asignatura.profesor,
+      fecha: fechaActual,
+    };
+
+    // Enviar el objeto al backend utilizando el servicio
+    this.apicrudAsignatura.saveQrData(qrgenerado).subscribe({
+      next: () => {
+        console.log("QR generado y guardado con éxito:", qrgenerado);
+        this.mostrarMensaje();
+      },
+      error: (err) => {
+        console.error("Error al guardar el QR:", err);
+      },
     });
-
-    await alert.present();
   }
 
   eliminar() {
@@ -121,7 +115,7 @@ Fecha: ${fechaActual}
 
   async mostrarMensaje() {
     const alerta = await this.alertcontroller.create({
-      header: "Creando Palabra",
+      header: "Éxito",
       message: "Su QR ha sido Almacenado",
       buttons: ["Ok"],
     });

@@ -27,6 +27,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: "qrgenerados",
+        loadChildren: () =>
+          import("../qrgenerados/qrgenerados.module").then(
+            (m) => m.QrgeneradosPageModule
+          ),
+      },
+      {
         path: "",
         redirectTo: "/tabs/landing",
         pathMatch: "full",

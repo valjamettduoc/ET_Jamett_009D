@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>QRs Generados</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="qrList.length > 0; else noData">
+    <ion-item *ngFor="let qr of qrList">
+      <ion-label>
+        <h2>Asignatura: {{ qr.asignatura }}</h2>
+        <p>Profesor: {{ qr.profesor }}</p>
+        <p>Email: {{ qr.email }}</p>
+        <p>RUT: {{ qr.rut }}</p>
+        <p>Fecha: {{ qr.fecha }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #noData>
+    <ion-text color="medium">
+      <p style="text-align: center">No hay QRs generados.</p>
+    </ion-text>
+  </ng-template>
+</ion-content>

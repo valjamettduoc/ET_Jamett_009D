@@ -1,8 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { map, Observable, switchMap } from "rxjs";
+import { Observable } from "rxjs";
 import { Alumno, InterfazAlumnos } from "../../interfaces/alumnos";
-import { QRgenerado } from "../../interfaces/qrgenerado";
 import { environment } from "src/environments/environment";
 
 @Injectable({
@@ -41,35 +40,6 @@ export class AuthService {
     );
   }
 
-  // New method to update QR data for a student
-  updateQRForAlumno(rut: string, nuevoQR: QRgenerado): Observable<Alumno> {
-    return this.httpclient
-      .get<Alumno[]>(`${environment.apiUrl}/alumnos/?rut=${rut}`)
-      .pipe(
-        map((alumnos) => {
-          if (alumnos.length > 0) {
-            const alumno = alumnos[0];
-            // Initialize the qrgenerado array if it's undefined
-            if (!alumno.qrgenerado) {
-              alumno.qrgenerado = [];
-            }
-            // Add the new QR data to the array
-            alumno.qrgenerado.push(nuevoQR);
-
-            // Return the updated student object
-            return alumno;
-          } else {
-            throw new Error("Alumno no encontrado");
-          }
-        }),
-        switchMap((alumno) =>
-          this.httpclient.put<Alumno>(
-            `${environment.apiUrl}/alumnos/${alumno.id}`,
-            alumno
-          )
-        )
-      );
-  }
   // Aquí verificamos si hay un token o sesión activa
   isLoggedIn(): boolean {
     const token = sessionStorage.getItem("authToken"); // O usa cualquier otro mecanismo

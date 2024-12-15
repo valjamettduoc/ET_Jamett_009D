@@ -80,6 +80,10 @@ const routes: Routes = [
         (m) => m.NuevaContraPageModule
       ),
   },
+  {
+    path: 'qrgenerados',
+    loadChildren: () => import('./qrgenerados/qrgenerados.module').then( m => m.QrgeneradosPageModule)
+  },
 ];
 @NgModule({
   imports: [

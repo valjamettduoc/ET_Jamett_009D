@@ -46,4 +46,12 @@ export class ApiasignaturasService {
   getAlumnos(): Observable<IAlumno[]> {
     return this.httpclient.get<IAlumno[]>(`${environment.apiUrl}/usuarios`);
   }
+
+  saveQrData(qrData: any): Observable<any> {
+    return this.httpclient.post(`${environment.apiUrl}/qrgenerado`, qrData);
+  }
+
+  getAllQrs(): Observable<any[]> {
+    return this.httpclient.get<any[]>(`${environment.apiUrl}/qrgenerado`);
+  }
 }

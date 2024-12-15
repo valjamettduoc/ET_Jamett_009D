@@ -1,6 +1,7 @@
 export interface QRgenerado {
-    nombreAsignatura: string;
-    nombreProfesor: string;
-    fecha: string;
-    seccion: string;
+  nombreAsignatura: string;
+  nombreProfesor: string;
+  rutAlumno: string;
+  fecha: string;
+  seccion: string;
 }
