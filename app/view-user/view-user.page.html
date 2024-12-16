@@ -62,7 +62,7 @@
 
   <h1>QRs generados</h1>
   <ion-list *ngIf="qrList.length > 0; else noData">
-    <ion-item *ngFor="let qr of qrList">
+    <ion-item *ngFor="let qr of qrList" (click)="verificarAsistencia(qr)">
       <ion-label>
         <h2>Asignatura: {{ qr.asignatura }}</h2>
         <p>Profesor: {{ qr.profesor }}</p>

@@ -47,4 +47,8 @@ export class ApiasignaturasService {
   getAllQrs(): Observable<any[]> {
     return this.httpclient.get<any[]>(`${environment.apiUrl}/qrgenerado`);
   }
+
+  getAsistencias(): Observable<any[]> {
+    return this.httpclient.get<any[]>(`${environment.apiUrl}/asistencia`);
+  }
 }

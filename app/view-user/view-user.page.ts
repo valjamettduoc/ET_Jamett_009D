@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { AlertController } from "@ionic/angular"; // Importa AlertController
 import { ApiasignaturasService } from "../services/apiasignaturas.service";
 
 @Component({
@@ -21,7 +22,8 @@ export class ViewUserPage implements OnInit {
 
   constructor(
     private router: Router,
-    private apicrudAsignatura: ApiasignaturasService
+    private apicrudAsignatura: ApiasignaturasService,
+    private alertController: AlertController // Inyecta AlertController
   ) {}
 
   ngOnInit() {
@@ -45,6 +47,13 @@ export class ViewUserPage implements OnInit {
     }
   }
 
+  ionViewWillEnter() {
+    // Refrescar los QRs cada vez que se entra en la pestaña
+    if (this.rutUsuario) {
+      this.cargarQrs();
+    }
+  }
+
   togglePasswordVisibility() {
     this.mostrarPassword = !this.mostrarPassword;
   }
@@ -62,14 +71,48 @@ export class ViewUserPage implements OnInit {
     this.apicrudAsignatura.getAllQrs().subscribe({
       next: (data) => {
         this.qrList = data; // Guardar todos los QRs
-        this.filteredQrList = this.qrList.filter(
-          (qr) => qr.rut === this.rutUsuario
-        ); // Filtrar por RUT del usuario logueado
-        console.log("QRs filtrados:", this.filteredQrList);
+        console.log("QRs cargados:", this.qrList);
       },
       error: (err) => {
         console.error("Error al cargar los QRs:", err);
       },
     });
+  }
+
+  verificarAsistencia(qr: any) {
+    this.apicrudAsignatura.getAsistencias().subscribe({
+      next: (asistencias) => {
+        const asistenciaEncontrada = asistencias.some(
+          (asistencia) =>
+            asistencia.rut === qr.rut &&
+            asistencia.asignatura === qr.asignatura &&
+            asistencia.fecha === qr.fecha
+        );
+
+        if (asistenciaEncontrada) {
+          this.mostrarAlerta(
+            "Asistencia encontrada",
+            "La asistencia para este QR ha sido registrada."
+          );
+        } else {
+          this.mostrarAlerta(
+            "Asistencia no encontrada",
+            "La asistencia para este QR no ha sido registrada."
+          );
+        }
+      },
+      error: (err) => {
+        console.error("Error al verificar la asistencia:", err);
+      },
+    });
+  }
+
+  async mostrarAlerta(header: string, message: string) {
+    const alerta = await this.alertController.create({
+      header,
+      message,
+      buttons: ["OK"],
+    });
+    alerta.present();
   }
 }

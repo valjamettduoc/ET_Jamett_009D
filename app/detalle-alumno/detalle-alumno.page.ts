@@ -62,14 +62,7 @@ export class DetalleAlumnoPage implements OnInit {
 
   generarQr() {
     const fechaActual = new Date().toLocaleDateString();
-    this.qrdata = `
-  RUT: ${this.usuarios.rut}
-  Email: ${this.usuarios.email}
-  Asignatura: ${this.asignatura.nombre}
-  Profesor: ${this.asignatura.profesor}
-  Fecha: ${fechaActual}
-    `;
-
+    this.qrdata = `${this.usuarios.rut},${this.usuarios.email},${this.asignatura.nombre},${this.asignatura.profesor},${fechaActual}`;
     // Crear el objeto JSON con la información del QR
     const qrgenerado = {
       rut: this.usuarios.rut,
