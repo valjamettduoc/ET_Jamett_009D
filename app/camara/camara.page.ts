@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
+import { BarcodeScanner } from "@capacitor-mlkit/barcode-scanning";
 import { NewAsistencia } from "src/interfaces/asistencia";
 import { ApiasistenciaService } from "../services/apiasistencia.service";
+import { AlertController } from "@ionic/angular";
 
 @Component({
   selector: "app-camara",
@@ -17,37 +18,62 @@ export class CamaraPage implements OnInit {
     fecha: "",
   };
 
-  constructor(private asistenciaService: ApiasistenciaService) {}
+  constructor(
+    private alertController: AlertController,
+    private apiasistenciaService: ApiasistenciaService
+  ) {}
 
-  ngOnInit() {
-    Camera.requestPermissions();
-  }
+  ngOnInit() {}
 
   async leerQr() {
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
-      resultType: CameraResultType.DataUrl, // Devuelve la imagen como un DataURL
-      source: CameraSource.Camera,
-    });
+    const { barcodes } = await BarcodeScanner.scan();
+    if (barcodes.length > 0) {
+      const qrData = barcodes[0].displayValue;
+      try {
+        // Divide la cadena del QR en partes
+        const dataParts = qrData.split(",");
+        if (dataParts.length === 5) {
+          this.newAsistencia = {
+            rut: dataParts[0],
+            email: dataParts[1],
+            asignatura: dataParts[2],
+            profesor: dataParts[3],
+            fecha: dataParts[4],
+          };
+          this.saveQrData();
+        } else {
+          console.error(
+            "Error parsing QR data: Incorrect number of data parts"
+          );
+        }
+      } catch (error) {
+        console.error("Error parsing QR data:", error);
+      }
+    }
   }
 
-  procesarQr(data: string) {
-    // Aquí asumimos que el contenido del QR está en formato JSON.
-    try {
-      const qrData = JSON.parse(data);
+  async requestPermissions(): Promise<boolean> {
+    const { camera } = await BarcodeScanner.requestPermissions();
+    return camera === "granted" || camera === "limited";
+  }
 
-      // Actualiza las propiedades de `newAsistencia` con los datos del QR.
-      this.newAsistencia.rut = qrData.rut || "";
-      this.newAsistencia.email = qrData.email || "";
-      this.newAsistencia.asignatura = qrData.asignatura || "";
-      this.newAsistencia.profesor = qrData.profesor || "";
-      this.newAsistencia.fecha = qrData.fecha || "";
+  async presentAlert(): Promise<void> {
+    const alert = await this.alertController.create({
+      header: "Permission denied",
+      message: "Please grant camera permission to use the barcode scanner.",
+      buttons: ["OK"],
+    });
+    await alert.present();
+  }
 
-      this.asistenciaService.PostAsistencia(this.newAsistencia).subscribe();
-      console.log("Datos de asistencia actualizados:", this.newAsistencia);
-    } catch (error) {
-      console.error("Error al procesar el QR:", error);
-    }
+  saveQrData() {
+    this.apiasistenciaService.saveQrData(this.newAsistencia).subscribe({
+      next: () => {
+        console.log("QR data saved successfully:", this.newAsistencia);
+      },
+      error: (err) => {
+        console.error("Error saving QR data:", err);
+      },
+    });
   }
 }

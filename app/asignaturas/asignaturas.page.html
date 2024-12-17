@@ -2,9 +2,29 @@
   <ion-toolbar>
     <ion-title>Asistencias</ion-title>
   </ion-toolbar>
+</ion-header>
 
+<ion-content [fullscreen]="true">
+  <!-- Selector de asignatura -->
+  <ion-item>
+    <ion-label>Seleccionar Asignatura</ion-label>
+    <ion-select
+      [(ngModel)]="asignaturaSeleccionada"
+      (ionChange)="filtrarAsistencias()"
+    >
+      <ion-select-option value="">Todas</ion-select-option>
+      <ion-select-option *ngFor="let a of asistencia" [value]="a.asignatura">
+        {{ a.asignatura }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Lista de asistencias filtradas -->
   <ion-list>
-    <ion-item *ngFor="let a of asistencia" (click)="buscarAsistencia(a)">
+    <ion-item
+      *ngFor="let a of asistenciaFiltrada"
+      (click)="buscarAsistencia(a)"
+    >
       <ion-label>
         <h3 style="color: aquamarine">Id Asistencia: {{a.id}}</h3>
         <h4>Email: {{a.email}}</h4>
@@ -12,6 +32,4 @@
       </ion-label>
     </ion-item>
   </ion-list>
-</ion-header>
-
-<ion-content [fullscreen]="true"> </ion-content>
+</ion-content>

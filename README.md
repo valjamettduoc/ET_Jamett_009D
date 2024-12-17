@@ -1,7 +1,7 @@
-Instalar cámara:
+Instalar escáner de QR:
 
 ```
-npm install @capacitor/camera
+npm install @capacitor-mlkit/barcode-scanning@next
 npx cap sync
 ```
 

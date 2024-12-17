@@ -1,8 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { Asignaturas } from "src/interfaces/asignaturas";
+import { Asistencias } from "src/interfaces/asistencia";
 import { Router } from "@angular/router";
 import { ApiasistenciaService } from "../services/apiasistencia.service";
-import { Asistencias } from "src/interfaces/asistencia";
 
 @Component({
   selector: "app-asignaturas",
@@ -10,19 +9,28 @@ import { Asistencias } from "src/interfaces/asistencia";
   styleUrls: ["./asignaturas.page.scss"],
 })
 export class AsignaturasPage implements OnInit {
-  constructor(private apicrud: ApiasistenciaService, private router: Router) {}
-
   asistencia: Asistencias[] = [];
+  asistenciaFiltrada: Asistencias[] = [];
+  asignaturaSeleccionada: string = "";
+
+  constructor(private apicrud: ApiasistenciaService, private router: Router) {}
 
   ngOnInit() {
     this.apicrud.getAsistencias().subscribe((data) => {
       this.asistencia = data;
-      console.log(this.asistencia);
+      this.asistenciaFiltrada = this.asistencia;
     });
   }
-  buscarAsistencia(Observable: Asistencias) {
-    this.router.navigate(["/detalle-asignatura"], {
-      queryParams: { asignatura: JSON.stringify(Observable) },
-    });
+
+  filtrarAsistencias() {
+    if (this.asignaturaSeleccionada) {
+      this.asistenciaFiltrada = this.asistencia.filter(
+        (asistencia) =>
+          asistencia.asignatura.toLowerCase() ===
+          this.asignaturaSeleccionada.toLowerCase()
+      );
+    } else {
+      this.asistenciaFiltrada = this.asistencia;
+    }
   }
 }
