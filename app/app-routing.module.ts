@@ -48,24 +48,32 @@ const routes: Routes = [
       import("./camara/camara.module").then((m) => m.CamaraPageModule),
   },
   {
-    path: 'detalle-asignatura',
-    loadChildren: () => import('./detalle-asignatura/detalle-asignatura.module').then( m => m.DetalleAsignaturaPageModule)
+    path: "olvidar-contra",
+    loadChildren: () =>
+      import("./olvidar-contra/olvidar-contra.module").then(
+        (m) => m.OlvidarContraPageModule
+      ),
   },
   {
-    path: 'olvidar-contra',
-    loadChildren: () => import('./olvidar-contra/olvidar-contra.module').then( m => m.OlvidarContraPageModule)
+    path: "nueva-contra",
+    loadChildren: () =>
+      import("./nueva-contra/nueva-contra.module").then(
+        (m) => m.NuevaContraPageModule
+      ),
   },
   {
-    path: 'nueva-contra',
-    loadChildren: () => import('./nueva-contra/nueva-contra.module').then( m => m.NuevaContraPageModule)
+    path: "justificativos",
+    loadChildren: () =>
+      import("./justificativos/justificativos.module").then(
+        (m) => m.JustificativosPageModule
+      ),
   },
   {
-    path: 'justificativos',
-    loadChildren: () => import('./justificativos/justificativos.module').then( m => m.JustificativosPageModule)
-  },
-  {
-    path: 'editar-comentario',
-    loadChildren: () => import('./editar-comentario/editar-comentario.module').then( m => m.EditarComentarioPageModule)
+    path: "editar-comentario",
+    loadChildren: () =>
+      import("./editar-comentario/editar-comentario.module").then(
+        (m) => m.EditarComentarioPageModule
+      ),
   },
 ];
 @NgModule({

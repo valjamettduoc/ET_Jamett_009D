@@ -21,10 +21,7 @@
 
   <!-- Lista de asistencias filtradas -->
   <ion-list>
-    <ion-item
-      *ngFor="let a of asistenciaFiltrada"
-      (click)="buscarAsistencia(a)"
-    >
+    <ion-item *ngFor="let a of asistenciaFiltrada">
       <ion-label>
         <h3 style="color: aquamarine">Id Asistencia: {{a.id}}</h3>
         <h4>Email: {{a.email}}</h4>
