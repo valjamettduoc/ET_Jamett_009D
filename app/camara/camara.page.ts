@@ -26,6 +26,11 @@ export class CamaraPage implements OnInit {
   ngOnInit() {}
 
   async leerQr() {
+    const granted = await this.requestPermissions();
+    if (!granted) {
+      this.presentAlert();
+      return;
+    }
     const { barcodes } = await BarcodeScanner.scan();
     if (barcodes.length > 0) {
       const qrData = barcodes[0].displayValue;
